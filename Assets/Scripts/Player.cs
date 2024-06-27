@@ -1,8 +1,8 @@
 /*
  * Author: Chan Hong Wei
- * Date: 09/06/2024
+ * Date: 28/06/2024
  * Description: 
- * Player script to interact with gameObjects.
+ * The Player script that controls the interaction, raycast and health
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -23,14 +23,45 @@ public class Player : MonoBehaviour
     [SerializeField]
     float interactionDistance;
 
+    // The player health
+    public int maxHealth = 100;
+    public int currentHealth;
+
+    public GameManager gameManager; // load in game manager cs script
+    private bool isDead;
+
+    // Reference to the health bar
+    public HealthBar healthBar;
+
+    void Start()
+    {
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+    }
+
     private void Update()
     {
+        // Raycast script
         Debug.DrawLine(playerCamera.position, playerCamera.position + (playerCamera.forward * interactionDistance), Color.red);
         RaycastHit hitInfo;
         if (Physics.Raycast(playerCamera.position, playerCamera.forward, out hitInfo, interactionDistance))
         {
             Debug.Log(hitInfo.transform.name + " was touched");
         }
+
+        // Damage script
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            TakeDamage(20);
+        }
+
+        if (currentHealth <= 0 && !isDead)
+        {
+            isDead = true;
+            Debug.Log("Dead");
+            gameManager.GameOver(); // Display game over menu
+        }
+
     }
 
     /// <summary>
@@ -40,6 +71,14 @@ public class Player : MonoBehaviour
     public void UpdateInteractable(Interactable newInteractable)
     {
         currentInteractable = newInteractable;
+    }
+
+    // Damage function for the player
+    void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+
+        healthBar.SetHealth(currentHealth);
     }
 
     /// <summary>

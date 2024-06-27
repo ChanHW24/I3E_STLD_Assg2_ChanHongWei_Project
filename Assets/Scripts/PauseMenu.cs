@@ -17,6 +17,8 @@ public class PauseMenu : MonoBehaviour
 
     public GameObject backgroundImage; // Reference to the background image
 
+    public GameObject healthBar; // Reference to the health bar
+
     void Start()
     {
         pauseMenuUI.SetActive(false); // Close pause menu
@@ -45,6 +47,7 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("Resume.");
         pauseMenuUI.SetActive(false); // Close pause menu
         backgroundImage.SetActive(false); // Close background image
+        healthBar.SetActive(true); // Turn on health bar
         Time.timeScale = 1f; // Resume time
         GameIsPause = false;
         Cursor.visible = false; // Hide cursor
@@ -57,6 +60,7 @@ public class PauseMenu : MonoBehaviour
         Debug.Log("Pause");
         pauseMenuUI.SetActive(true); // Show pause menu
         backgroundImage.SetActive(true); // Show background image
+        healthBar.SetActive(false); // Turn off health bar
         Time.timeScale = 0f; // Freeze time
         GameIsPause = true;
         Cursor.visible = true; // Show cursor

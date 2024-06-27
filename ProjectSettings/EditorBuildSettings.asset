@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 32221fc8e4cac4727a307f7ca11630ab
   - enabled: 1
-    path: Assets/Scenes/Assg2.unity
+    path: Assets/Scenes/Game.unity
     guid: 1cd644a39eccc45478d2493c8c236208
+  - enabled: 1
+    path: Assets/Scenes/MayanTemple.unity
+    guid: e141cc22a9e344f05af53f66bc820f4a
   m_configObjects: {}
