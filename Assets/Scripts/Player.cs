@@ -18,6 +18,12 @@ public class Player : MonoBehaviour
     Interactable currentInteractable;
 
     [SerializeField]
+    private AudioClip hurtAudio;
+
+    [SerializeField]
+    private AudioClip healAudio;
+
+    [SerializeField]
     Transform playerCamera;
 
     [SerializeField]
@@ -49,12 +55,6 @@ public class Player : MonoBehaviour
             Debug.Log(hitInfo.transform.name + " was touched");
         }
 
-        // Damage script
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            TakeDamage(20);
-        }
-
         if (currentHealth <= 0 && !isDead)
         {
             isDead = true;
@@ -64,6 +64,25 @@ public class Player : MonoBehaviour
 
     }
 
+    // Damage function for the player
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        AudioSource.PlayClipAtPoint(hurtAudio, transform.position, 1f);
+        healthBar.SetHealth(currentHealth);
+    }
+
+    public void RestoreHealth(int amount)
+    {
+        currentHealth += amount;
+        AudioSource.PlayClipAtPoint(healAudio, transform.position, 1f);
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        healthBar.SetHealth(currentHealth);
+    }
+
     /// <summary>
     /// Update the player's current Interactable
     /// </summary>
@@ -71,14 +90,6 @@ public class Player : MonoBehaviour
     public void UpdateInteractable(Interactable newInteractable)
     {
         currentInteractable = newInteractable;
-    }
-
-    // Damage function for the player
-    void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
-
-        healthBar.SetHealth(currentHealth);
     }
 
     /// <summary>

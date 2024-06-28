@@ -1,38 +1,46 @@
-/*
- * Author: Chan Hong Wei
- * Date: 24/06/2024
- * Description: 
- * The Collectible will destroy itself after being collected.
- */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class Collectible : Interactable
+public class TreasureBox : Interactable
 {
+    [SerializeField]
+    private GameObject collectibleToSpawn;
+
     [SerializeField]
     private AudioClip collectAudio;
 
-    public GameObject PickUpText;
+    public GameObject OpenUpText;
 
-    public int myScore = 1;
-
-    void Start()
+    /*
+    private void OnCollisionEnter(Collision collision)
     {
-        PickUpText.SetActive(false);
+        if (collision.gameObject.tag == "Player")
+        {
+            //Plays a sound when item is touched
+            AudioSource.PlayClipAtPoint(collectAudio, transform.position, 1f);
+            SpawnCollectible();
+            Destroy(gameObject);
+        }
+    }
+    */
+
+    private void Start()
+    {
+        OpenUpText.SetActive(false);
     }
 
-    /// <summary>
-    /// Performs actions related to collection of the collectible
-    /// </summary>
     public virtual void Collected()
     {
         //Plays a sound when item is collected
         AudioSource.PlayClipAtPoint(collectAudio, transform.position, 1f);
 
+
+        // Spawn Key
+        SpawnCollectible();
+
         //Remove pick up text
-        PickUpText.SetActive(false);
+        OpenUpText.SetActive(false);
 
         // Destroy the attached GameObject
         Destroy(gameObject);
@@ -46,7 +54,6 @@ public class Collectible : Interactable
     public override void Interact(Player thePlayer)
     {
         base.Interact(thePlayer);
-        GameManager.instance.IncreaseScore(myScore);
         Collected();
     }
 
@@ -60,7 +67,7 @@ public class Collectible : Interactable
         // touched me has a 'Player' tag
         if (collision.gameObject.tag == "Player")
         {
-            PickUpText.SetActive(true); //Remove the pick up text
+            OpenUpText.SetActive(true); //Remove the pick up text
             currentPlayer = collision.gameObject.GetComponent<Player>();
             UpdatePlayerInteractable(currentPlayer);
         }
@@ -72,11 +79,14 @@ public class Collectible : Interactable
         // stopped touching me has a 'Player' tag
         if (collision.gameObject.tag == "Player")
         {
-            PickUpText.SetActive(false); //Remove pick up text
+            OpenUpText.SetActive(false); //Remove pick up text
             RemovePlayerInteractable(currentPlayer);
             currentPlayer = null;
         }
     }
 
-
+    void SpawnCollectible()
+    {
+        Instantiate(collectibleToSpawn, transform.position, collectibleToSpawn.transform.rotation);
+    }
 }
