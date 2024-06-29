@@ -57,5 +57,43 @@ public class Damage : MonoBehaviour
         }
     }
 
+    // on collision enter
+    public void OnCollisionEnter(Collision collision)
+    {
+        // Check if the object that
+        // touched me has a 'Player' tag
+        if (collision.gameObject.tag == "Player")
+        {
+            Debug.Log("Player takes " + damage + " damage.");
+            playerHealth.TakeDamage(damage); // load damage function
+        }
+    }
+
+    public void OnCollisionExit(Collision collision)
+    {
+        // Check if the object that
+        // stopped touching me has a 'Player' tag
+        if (collision.gameObject.tag == "Player")
+        {
+            // Reset nextDamageTime to avoid immediate damage when re-entering
+            nextDamageTime = 0f;
+        }
+    }
+
+    public void OnCollisionStay(Collision collision)
+    {
+        // Check if the object that
+        // touched me has a 'Player' tag
+        if (collision.gameObject.tag == "Player")
+        {
+            if (Time.time >= nextDamageTime)
+            {
+                Debug.Log("Player takes " + damage + " damage.");
+                playerHealth.TakeDamage(damage); // load damage function
+                nextDamageTime = Time.time + damageInterval;
+            }
+        }
+    }
+
 
 }

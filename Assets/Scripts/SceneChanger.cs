@@ -14,7 +14,7 @@ public class SceneChanger : MonoBehaviour
 
     public int targetSceneIndex;
 
-    private void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         // Check whether the object has the "Player" tag
         if (other.tag == "Player")
@@ -24,7 +24,7 @@ public class SceneChanger : MonoBehaviour
         }
     }
 
-    void ChangeScene()
+    public void ChangeScene()
     {
         SceneManager.LoadScene(targetSceneIndex);
     }

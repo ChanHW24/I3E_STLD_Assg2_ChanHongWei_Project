@@ -12,25 +12,26 @@ public class AdvanceDoor : Interactable
 {
 
     [SerializeField]
-    private AudioSource openAudio;
+    public AudioSource openAudio;
     public GameObject openUpText;
 
     // for door lerp time
     public float openDuration;
-    float currentDuration;
-    bool opening = false;
-    Vector3 startRotation;
-    Vector3 targetRotation;
+    protected float currentDuration;
+    protected bool opening = false;
+    protected Vector3 startRotation;
+    protected Vector3 targetRotation;
 
     /// <summary>
     /// Flags if the door is open
     /// </summary>
-    bool opened = false;
+    protected bool opened = false;
 
     /// <summary>
     /// Flags if the door is locked
     /// </summary>
-    bool locked = false;
+    protected bool locked = false;
+
     private void OnTriggerEnter(Collider other)
     {
         // Check if the obejct entering the trigger has the "Player" tag
@@ -77,7 +78,7 @@ public class AdvanceDoor : Interactable
     /// <summary>
     /// Handles the door opening 
     /// </summary>
-    public void OpenDoor()
+    public virtual void OpenDoor()
     {
         // Door should open only when it is not locked
         // and not already opened.
@@ -106,6 +107,11 @@ public class AdvanceDoor : Interactable
     {
         // Assign the lockStatus value to the locked bool.
         locked = lockStatus;
+    }
+
+    private void Start()
+    {
+        openUpText.SetActive(false);
     }
 
     private void Update()

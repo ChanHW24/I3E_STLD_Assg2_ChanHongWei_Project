@@ -1,3 +1,9 @@
+/*
+ * Author: Chan Hong Wei
+ * Date: 27/05/2024
+ * Description: 
+ * Contain script for the speed boost activation
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,8 +24,7 @@ public class SpeedBoost : Collectible
 
     public override void Interact(Player thePlayer)
     {
-        targetPlayer = thePlayer.gameObject.GetComponent<StarterAssets.FirstPersonController>();
-        // Assuming you have a reference to the GameObject with the FirstPersonController component
+        targetPlayer = thePlayer.gameObject.GetComponent<StarterAssets.FirstPersonController>(); // Get component from the starter asset
         base.Interact(thePlayer);
     }
 

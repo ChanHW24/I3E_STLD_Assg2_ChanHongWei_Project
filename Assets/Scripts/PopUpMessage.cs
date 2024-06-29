@@ -24,7 +24,7 @@ public class PopUpMessage : MonoBehaviour
         backGround.SetActive(false);
     }
 
-    private void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         onTriggerEnter.Invoke();
         if (destroyOnTriggerEnter)

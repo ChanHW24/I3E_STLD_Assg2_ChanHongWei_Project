@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI scoreText;
 
-    private int currentScore = 0;
+    public int currentScore = 0;
 
     private void Awake()
     {
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         }
         else if (instance != null && instance != this) // If there is a Gamemanager. Destroy the spare GameManager
         {
-            Destroy(gameObject);
+
         }
     }
 

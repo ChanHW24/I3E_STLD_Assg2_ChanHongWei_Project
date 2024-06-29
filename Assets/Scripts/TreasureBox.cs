@@ -1,3 +1,9 @@
+/*
+ * Author: Chan Hong Wei
+ * Date: 27/05/2024
+ * Description: 
+ * Contain script for the treasure box
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
