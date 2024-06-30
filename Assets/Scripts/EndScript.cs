@@ -13,7 +13,7 @@ public class EndScript : SceneChanger
     public override void OnTriggerEnter(Collider other)
     {
         // Check whether the object has the "Player" tag
-        if (other.tag == "Player" && GameManager.instance.currentScore >= 4)
+        if (other.tag == "Player" && GameManager.instance.currentScore >= 4) // check if player has completed game
         {
             // If it is the player, change scene.
             ChangeScene();

@@ -10,11 +10,14 @@ using UnityEngine;
 
 public class EndMenu : HomePage
 {
+
+    public AudioSource endSound;
     // Start is called before the first frame update
     void Start()
     {
         Cursor.visible = true; // Show cursor
         Cursor.lockState = CursorLockMode.None; // Unlock cursor
+        endSound.Play();
     }
 
     // Update is called once per frame
